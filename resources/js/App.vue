@@ -1,13 +1,15 @@
 <template>
   <v-app>
-    <v-alert type="warning" :value="true">
-      Vuetify was installed properly
-    </v-alert>
+    <TheNavBar/>
   </v-app>
 </template>
 
 <script>
+import TheNavBar from "./components/TheNavBar"
 export default {
-  name: "App"
+  name: "App",
+  components:{
+      TheNavBar
+  }
 };
 </script>
