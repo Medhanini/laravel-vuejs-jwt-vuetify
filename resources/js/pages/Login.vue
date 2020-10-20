@@ -13,33 +13,25 @@
       required
     ></v-text-field>
     <v-text-field
-      v-model="password"
-      label="Password"
-      required
-    ></v-text-field>
+            v-model="password"
+            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.required, rules.min]"
+            :type="show ? 'text' : 'password'"
+            name="input-10-1"
+            label="Password"
+            hint="At least 8 characters"
+            counter
+            @click:append="show = !show"
+          ></v-text-field>
 
     <v-btn
       :disabled="!valid"
       color="success"
       class="mr-4"
-      @click="validate"
-    >
-      Validate
-    </v-btn>
+      @click.prevent="performLogin"
 
-    <v-btn
-      color="error"
-      class="mr-4"
-      @click="reset"
     >
-      Reset Form
-    </v-btn>
-
-    <v-btn
-      color="warning"
-      @click="resetValidation"
-    >
-      Reset Validation
+      Login
     </v-btn>
   </v-form>
 </v-container>
@@ -47,37 +39,26 @@
 <script>
   export default {
     data: () => ({
-      valid: true,
-      name: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-      ],
+      valid: false,
       email: '',
+      password: '',
+      show: false,
+        rules: {
+          required: value => !!value || 'Required.',
+          min: v => v.length >= 8 || 'Min 8 characters',
+          emailMatch: () => ('The email and password you entered don\'t match'),
+        },
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
-      select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-      ],
-      checkbox: false,
+      ]
     }),
 
     methods: {
-      validate () {
-        this.$refs.form.validate()
-      },
-      reset () {
-        this.$refs.form.reset()
-      },
-      resetValidation () {
-        this.$refs.form.resetValidation()
-      },
+      performLogin(){
+        console.log("perform login")
+        this.$router.push('/profile')
+      }
     },
   }
 </script>

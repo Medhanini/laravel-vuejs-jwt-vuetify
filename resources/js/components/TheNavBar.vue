@@ -90,14 +90,20 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
             
-            <v-btn  outlined>
+            <v-btn 
+            link
+            to="/login" 
+            outlined>
                 Login
-                <v-icon>mdi-login</v-icon>
+                <!-- <v-icon>mdi-login</v-icon> -->
             </v-btn>
             
-          <v-btn class="ml-4" outlined>
+          <v-btn class="ml-4" 
+          link
+          to="/register"
+          outlined>
               Register
-            <v-icon>mdi-account-plus-outline</v-icon>
+            <!-- <v-icon>mdi-account-plus-outline</v-icon> -->
           </v-btn>
     </v-app-bar>
     <v-main>
