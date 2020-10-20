@@ -1,6 +1,11 @@
 <template>
   <v-app>
     <TheNavBar/>
+    <v-main>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
