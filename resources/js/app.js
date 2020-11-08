@@ -31,19 +31,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 window.Vue = require('vue');
 
 import vuetify from './vuetify'
-
+import router from './router';
 import App from './App.vue';
-import VueRouter from 'vue-router';
-import {routes} from './routes';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 Vue.use(VueAxios, axios);
 
-Vue.use(VueRouter);
-const router = new VueRouter({
-    mode: 'history',
-    routes: routes
-});
 
 const app = new Vue({
     el: '#app',

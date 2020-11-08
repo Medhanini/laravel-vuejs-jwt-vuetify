@@ -89,22 +89,32 @@
         <span class="hidden-sm-and-down">App</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-            
-            <v-btn 
+            <div v-if="token" >
+              <v-btn 
+              outlined
+              @click="performLogout()"
+              >
+                  <!-- Logout -->
+                  <v-icon>mdi-logout</v-icon>
+              </v-btn>
+            </div>
+            <div v-else >
+              <v-btn 
+              link
+              to="/login" 
+              outlined>
+                  <!-- Login -->
+                  <v-icon>mdi-login</v-icon>
+              </v-btn>
+              
+            <v-btn class="ml-4" 
             link
-            to="/login" 
+            to="/register"
             outlined>
-                Login
-                <!-- <v-icon>mdi-login</v-icon> -->
+                <!-- Register  -->
+              <v-icon>mdi-account-plus-outline</v-icon>
             </v-btn>
-            
-          <v-btn class="ml-4" 
-          link
-          to="/register"
-          outlined>
-              Register
-            <!-- <v-icon>mdi-account-plus-outline</v-icon> -->
-          </v-btn>
+          </div>
     </v-app-bar>
     <v-main>
       <v-container
@@ -123,9 +133,26 @@
     data: () => ({
       dialog: false,
       drawer: false,
+      token:null,
       items: [
         { icon: 'mdi-desktop-mac-dashboard', text: 'Dashboard', to:"/"},
       ],
     }),
+    mounted(){
+      this.CheckUserStatus()
+    },
+    methods:{
+      CheckUserStatus(){
+        if(localStorage.getItem('token') != null){
+          this.token = localStorage.getItem('token')
+        }
+      },
+      performLogout(){
+        this.token = null
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        this.$router.push('/')
+      }
+    }
   }
 </script>

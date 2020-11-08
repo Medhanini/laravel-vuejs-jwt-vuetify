@@ -2089,6 +2089,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -2097,12 +2107,29 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       drawer: false,
+      token: null,
       items: [{
         icon: 'mdi-desktop-mac-dashboard',
         text: 'Dashboard',
         to: "/"
       }]
     };
+  },
+  mounted: function mounted() {
+    this.CheckUserStatus();
+  },
+  methods: {
+    CheckUserStatus: function CheckUserStatus() {
+      if (localStorage.getItem('token') != null) {
+        this.token = localStorage.getItem('token');
+      }
+    },
+    performLogout: function performLogout() {
+      this.token = null;
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.$router.push('/');
+    }
   }
 });
 
@@ -38864,18 +38891,48 @@ var render = function() {
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
-          _c("v-btn", { attrs: { link: "", to: "/login", outlined: "" } }, [
-            _vm._v("\n              Login\n              ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              staticClass: "ml-4",
-              attrs: { link: "", to: "/register", outlined: "" }
-            },
-            [_vm._v("\n            Register\n          ")]
-          )
+          _vm.token
+            ? _c(
+                "div",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { outlined: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.performLogout()
+                        }
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("mdi-logout")])],
+                    1
+                  )
+                ],
+                1
+              )
+            : _c(
+                "div",
+                [
+                  _c(
+                    "v-btn",
+                    { attrs: { link: "", to: "/login", outlined: "" } },
+                    [_c("v-icon", [_vm._v("mdi-login")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "ml-4",
+                      attrs: { link: "", to: "/register", outlined: "" }
+                    },
+                    [_c("v-icon", [_vm._v("mdi-account-plus-outline")])],
+                    1
+                  )
+                ],
+                1
+              )
         ],
         1
       ),
@@ -98296,13 +98353,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vuetify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vuetify */ "./resources/js/vuetify/index.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
-/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.es5.js");
-/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.es5.js");
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -98334,20 +98390,14 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-
-Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_4___default.a, axios__WEBPACK_IMPORTED_MODULE_5___default.a);
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
-  mode: 'history',
-  routes: _routes__WEBPACK_IMPORTED_MODULE_3__["routes"]
-});
+Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_4___default.a);
 var app = new Vue({
   el: '#app',
   vuetify: _vuetify__WEBPACK_IMPORTED_MODULE_0__["default"],
   iconfont: 'mdi',
-  router: router,
+  router: _router__WEBPACK_IMPORTED_MODULE_1__["default"],
   render: function render(h) {
-    return h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    return h(_App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
   }
 });
 
@@ -98796,41 +98846,86 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/routes.js":
+/***/ "./resources/js/router.js":
 /*!********************************!*\
-  !*** ./resources/js/routes.js ***!
+  !*** ./resources/js/router.js ***!
   \********************************/
-/*! exports provided: routes */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "routes", function() { return routes; });
-/* harmony import */ var _pages_index_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./pages/index.vue */ "./resources/js/pages/index.vue");
-/* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
-/* harmony import */ var _pages_Register_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/Register.vue */ "./resources/js/pages/Register.vue");
-/* harmony import */ var _pages_Profile_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Profile.vue */ "./resources/js/pages/Profile.vue");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _pages_index_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/index.vue */ "./resources/js/pages/index.vue");
+/* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
+/* harmony import */ var _pages_Register_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Register.vue */ "./resources/js/pages/Register.vue");
+/* harmony import */ var _pages_Profile_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Profile.vue */ "./resources/js/pages/Profile.vue");
 
 
 
 
-var routes = [{
-  name: 'home',
-  path: '/',
-  component: _pages_index_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-}, {
-  name: 'login',
-  path: '/login',
-  component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-}, {
-  name: 'register',
-  path: '/register',
-  component: _pages_Register_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-}, {
-  name: 'profile',
-  path: '/Profile',
-  component: _pages_Profile_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
-}];
+
+
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  mode: 'history',
+  routes: [{
+    name: 'home',
+    path: '/',
+    component: _pages_index_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }, {
+    name: 'login',
+    path: '/login',
+    component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    meta: {
+      guest: true
+    }
+  }, {
+    name: 'register',
+    path: '/register',
+    component: _pages_Register_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    meta: {
+      guest: true
+    }
+  }, {
+    name: 'profile',
+    path: '/Profile',
+    component: _pages_Profile_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    meta: {
+      secure: true
+    }
+  }]
+});
+router.beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.secure;
+  })) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (localStorage.getItem('token') == null) {
+      next({
+        path: '/login'
+      });
+    } else {
+      next();
+    }
+  } else if (to.matched.some(function (record) {
+    return record.meta.guest;
+  })) {
+    if (localStorage.getItem('token') == null) {
+      next();
+    } else {
+      next({
+        path: '/profile'
+      });
+    }
+  } else {
+    next(); // make sure to always call next()!
+  }
+});
+/* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
 
