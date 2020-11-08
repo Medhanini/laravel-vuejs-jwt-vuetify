@@ -1,6 +1,15 @@
 <template>
 <v-container>
     <h1>Register Form</h1>
+    <v-alert
+      v-if="error"
+      border="right"
+      colored-border
+      type="error"
+      elevation="2"
+    >
+      {{ error }}
+    </v-alert>
   <v-form
     ref="form"
     v-model="valid"
@@ -41,12 +50,14 @@
 </v-container>
 </template>
 <script>
+import axios from 'axios'
   export default {
     data: () => ({
       valid: true,
       name: '',
       email: '',
       password: '',
+      error:'',
       show: false,
         rules: {
           required: value => !!value || 'Required.',
@@ -61,8 +72,17 @@
 
     methods: {
       performRegister(){
-        console.log("perform Register")
-        this.$router.push('/profile')
+        axios.post('http://127.0.0.1:8000/api/auth/register',{
+          name : this.name,
+          email: this.email,
+          password: this.password
+        }).then(res=>{
+          localStorage.setItem('token', res.data.access_token);
+          localStorage.setItem('user', res.data.user);
+          this.$router.push('/profile')
+        }).catch(err=>{
+          this.error = err.message
+        })
       }
     },
   }

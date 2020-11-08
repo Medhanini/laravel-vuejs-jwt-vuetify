@@ -1,6 +1,15 @@
 <template>
 <v-container>
     <h1>Login Form</h1>
+    <v-alert
+      v-if="error"
+      border="right"
+      colored-border
+      type="error"
+      elevation="2"
+    >
+      {{ error }}
+    </v-alert>
   <v-form
     ref="form"
     v-model="valid"
@@ -37,11 +46,13 @@
 </v-container>
 </template>
 <script>
+import axios from 'axios'
   export default {
     data: () => ({
       valid: false,
       email: '',
       password: '',
+      error:'',
       show: false,
         rules: {
           required: value => !!value || 'Required.',
@@ -56,8 +67,22 @@
 
     methods: {
       performLogin(){
-        console.log("perform login")
+        axios.post('http://127.0.0.1:8000/api/auth/login',{
+          email:this.email,
+          password:this.password
+        }).then(
+          res =>{
+            console.log(res.data)
+            // store the user and token in localstorage
+            localStorage.setItem('token', res.data.access_token);
+            localStorage.setItem('user', res.data.user);
         this.$router.push('/profile')
+          }
+        ).catch( err => {
+            console.log(err.message)
+            this.error = err.message
+        })
+        console.log("perform login")
       }
     },
   }
