@@ -6,6 +6,7 @@ import index from './pages/index.vue';
 import Login from './pages/Login.vue';
 import Register from './pages/Register.vue';
 import Profile from './pages/Profile.vue';
+import store from './store';
 
 
 Vue.use(VueRouter);
@@ -42,7 +43,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.secure)) {
       // this route requires auth, check if logged in
       // if not, redirect to login page.
-      if (localStorage.getItem('token') == null) {
+      if (!store.state.auth.loggedIn) {
         next({
           path: '/login'
         })
@@ -51,7 +52,7 @@ router.beforeEach((to, from, next) => {
       }
     } 
     else if(to.matched.some(record => record.meta.guest)) {
-        if (localStorage.getItem('token') == null) {
+        if (!store.state.auth.loggedIn) {
             next()
           } else {
             next({

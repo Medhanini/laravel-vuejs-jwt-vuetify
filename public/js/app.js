@@ -2094,11 +2094,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -2107,7 +2102,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       dialog: false,
       drawer: false,
-      token: null,
       items: [{
         icon: 'mdi-desktop-mac-dashboard',
         text: 'Dashboard',
@@ -2115,20 +2109,12 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
-  mounted: function mounted() {
-    this.CheckUserStatus();
-  },
-  components: {
+  computed: {
     loggedIn: function loggedIn() {
       return this.$store.getters.get_loggedIn;
     }
   },
   methods: {
-    CheckUserStatus: function CheckUserStatus() {
-      if (localStorage.getItem('token') != null) {
-        this.token = localStorage.getItem('token');
-      }
-    },
     performLogout: function performLogout() {
       this.token = null;
       localStorage.removeItem('token');
@@ -2393,8 +2379,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -38706,8 +38690,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-app",
-    { attrs: { id: "inspire" } },
+    "div",
     [
       _c(
         "v-navigation-drawer",
@@ -38740,9 +38723,9 @@ var render = function() {
                               item.heading
                                 ? _c("v-subheader", [
                                     _vm._v(
-                                      "\n              " +
+                                      "\n                " +
                                         _vm._s(item.heading) +
-                                        "\n            "
+                                        "\n              "
                                     )
                                   ])
                                 : _vm._e()
@@ -38792,9 +38775,9 @@ var render = function() {
                                       [
                                         _c("v-list-item-title", [
                                           _vm._v(
-                                            "\n                " +
+                                            "\n                  " +
                                               _vm._s(item.text) +
-                                              "\n              "
+                                              "\n                "
                                           )
                                         ])
                                       ],
@@ -38840,9 +38823,9 @@ var render = function() {
                                   [
                                     _c("v-list-item-title", [
                                       _vm._v(
-                                        "\n                " +
+                                        "\n                  " +
                                           _vm._s(child.text) +
-                                          "\n              "
+                                          "\n                "
                                       )
                                     ])
                                   ],
@@ -38870,9 +38853,9 @@ var render = function() {
                             [
                               _c("v-list-item-title", [
                                 _vm._v(
-                                  "\n              " +
+                                  "\n                " +
                                     _vm._s(item.text) +
-                                    "\n            "
+                                    "\n              "
                                 )
                               ])
                             ],
@@ -38913,12 +38896,16 @@ var render = function() {
           _c(
             "v-toolbar-title",
             { staticClass: "ml-0 pl-4", staticStyle: { width: "300px" } },
-            [_c("span", { staticClass: "hidden-sm-and-down" }, [_vm._v("App")])]
+            [
+              _c("span", { staticClass: "hidden-sm-and-down" }, [
+                _vm._v("\n    hello" + _vm._s(_vm.loggedIn))
+              ])
+            ]
           ),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
-          _vm.token
+          _vm.loggedIn
             ? _c(
                 "div",
                 [
@@ -38962,9 +38949,7 @@ var render = function() {
               )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("v-main", [_c("v-container", [_c("router-view")], 1)], 1)
+      )
     ],
     1
   )
@@ -39315,15 +39300,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("h1", [_vm._v("Hello world !!")]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v(
-          " Simple example using Laravel 7.0 & Vuejs & Vuetify for E-commerce variations and options"
-        )
-      ])
-    ])
+    return _c("div", [_c("h1", [_vm._v("Hello world !! from home")])])
   }
 ]
 render._withStripped = true
@@ -100212,6 +100189,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
 /* harmony import */ var _pages_Register_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/Register.vue */ "./resources/js/pages/Register.vue");
 /* harmony import */ var _pages_Profile_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/Profile.vue */ "./resources/js/pages/Profile.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+
 
 
 
@@ -100254,7 +100233,7 @@ router.beforeEach(function (to, from, next) {
   })) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (localStorage.getItem('token') == null) {
+    if (!_store__WEBPACK_IMPORTED_MODULE_6__["default"].state.auth.loggedIn) {
       next({
         path: '/login'
       });
@@ -100264,7 +100243,7 @@ router.beforeEach(function (to, from, next) {
   } else if (to.matched.some(function (record) {
     return record.meta.guest;
   })) {
-    if (localStorage.getItem('token') == null) {
+    if (!_store__WEBPACK_IMPORTED_MODULE_6__["default"].state.auth.loggedIn) {
       next();
     } else {
       next({

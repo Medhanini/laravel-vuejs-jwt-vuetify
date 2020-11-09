@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+<div>
     <v-navigation-drawer
       v-model="drawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
@@ -86,10 +86,11 @@
         style="width: 300px"
         class="ml-0 pl-4"
       >
-        <span class="hidden-sm-and-down">App</span>
+        <span class="hidden-sm-and-down">
+    hello{{loggedIn}}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-            <div v-if="token" >
+            <div v-if="loggedIn" >
               <v-btn 
               outlined
               @click="performLogout()"
@@ -116,13 +117,7 @@
             </v-btn>
           </div>
     </v-app-bar>
-    <v-main>
-      <v-container
-      >
-        <router-view></router-view>
-      </v-container>
-    </v-main>
-  </v-app>
+    </div>
 </template>
 
 <script>
@@ -133,25 +128,16 @@
     data: () => ({
       dialog: false,
       drawer: false,
-      token:null,
       items: [
         { icon: 'mdi-desktop-mac-dashboard', text: 'Dashboard', to:"/"},
       ],
     }),
-    mounted(){
-      this.CheckUserStatus()
-    },
-    components:{
+    computed:{
       loggedIn(){
-        return this.$store.getters.get_loggedIn
+        return this.$store.getters.get_loggedIn;
       }
     },
     methods:{
-      CheckUserStatus(){
-        if(localStorage.getItem('token') != null){
-          this.token = localStorage.getItem('token')
-        }
-      },
       performLogout(){
         this.token = null
         localStorage.removeItem('token')
