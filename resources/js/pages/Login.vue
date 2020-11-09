@@ -1,6 +1,23 @@
 <template>
+<v-row justify="center" align="center">
+    <v-col cols="8">
+      <div class="text-center">
 <v-container>
-    <h1>Login Form</h1>
+    <v-card
+    class="overflow-hidden"
+    color="black lighten-1"
+    dark
+  >
+  <v-toolbar
+      flat
+      color="black"
+    >
+      <v-toolbar-title class="font-weight-light">
+        LOGIN
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    <v-card-text>
     <v-alert
       v-if="error"
       border="right"
@@ -43,7 +60,12 @@
       Login
     </v-btn>
   </v-form>
+    </v-card-text>
+    </v-card>
 </v-container>
+      </div>
+    </v-col>
+</v-row>
 </template>
 <script>
 import axios from 'axios'

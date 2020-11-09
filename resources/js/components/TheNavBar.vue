@@ -141,6 +141,11 @@
     mounted(){
       this.CheckUserStatus()
     },
+    components:{
+      loggedIn(){
+        return this.$store.getters.get_loggedIn
+      }
+    },
     methods:{
       CheckUserStatus(){
         if(localStorage.getItem('token') != null){

@@ -37,9 +37,12 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 Vue.use(VueAxios, axios);
 
+import store from "./store"
+
 
 const app = new Vue({
     el: '#app',
+    store, //vuex
     vuetify,
     iconfont: 'mdi',
     router: router,
