@@ -68,6 +68,9 @@ export default {
     getters:{
         get_loggedIn(state){
             return state.loggedIn
+        },
+        get_user(state){
+            return state.user
         }
     }
 }
