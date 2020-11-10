@@ -139,9 +139,7 @@
     },
     methods:{
       performLogout(){
-        this.token = null
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
+        this.$store.dispatch('performLogoutAction')
         this.$router.push('/')
       }
     }

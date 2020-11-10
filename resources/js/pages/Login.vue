@@ -1,6 +1,6 @@
 <template>
 <v-row justify="center" align="center">
-    <v-col cols="8">
+    <v-col cols="6">
       <div class="text-center">
 <v-container>
     <v-card
@@ -13,9 +13,10 @@
       color="black"
     >
       <v-toolbar-title class="font-weight-light">
-        LOGIN
+        Log-In
       </v-toolbar-title>
       <v-spacer></v-spacer>
+          <moon-loader :loading="isLoding" :color="loadingColor" :size="size"></moon-loader>
     </v-toolbar>
     <v-card-text>
     <v-alert
@@ -69,12 +70,16 @@
 </template>
 <script>
 import axios from 'axios'
+import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   export default {
     data: () => ({
       valid: false,
       email: '',
       password: '',
       error:'',
+      isLoding:false,
+      size:'50px',
+      loadingColor:'#e2070e',
       show: false,
         rules: {
           required: value => !!value || 'Required.',
@@ -86,25 +91,23 @@ import axios from 'axios'
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ]
     }),
-
+    components:{
+      MoonLoader
+    },
     methods: {
       performLogin(){
-        axios.post('http://127.0.0.1:8000/api/auth/login',{
+        this.isLoding = true,
+        this.$store.dispatch('performLoginAction',{
           email:this.email,
           password:this.password
-        }).then(
-          res =>{
-            console.log(res.data)
-            // store the user and token in localstorage
-            localStorage.setItem('token', res.data.access_token);
-            localStorage.setItem('user', res.data.user);
-        this.$router.push('/profile')
-          }
-        ).catch( err => {
+        }).then( res => {
+          this.isLoding = false
+          this.$router.push('/profile')
+        }).catch( err => {
             console.log(err.message)
-            this.error = err.message
+            this.error = "There was error during login process"
+            this.isLoding = false
         })
-        console.log("perform login")
       }
     },
   }
