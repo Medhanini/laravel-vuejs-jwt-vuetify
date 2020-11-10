@@ -69,7 +69,6 @@
 </v-row>
 </template>
 <script>
-import axios from 'axios'
 import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   export default {
     data: () => ({

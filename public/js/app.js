@@ -2083,8 +2083,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     performLogout: function performLogout() {
-      this.$store.dispatch('performLogoutAction');
-      this.$router.push('/');
+      var _this = this;
+
+      this.$store.dispatch('performLogoutAction').then(function (res) {
+        _this.$router.push('/');
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   }
 });
@@ -2100,9 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_spinner_src_MoonLoader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-spinner/src/MoonLoader.vue */ "./node_modules/vue-spinner/src/MoonLoader.vue");
+/* harmony import */ var vue_spinner_src_MoonLoader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-spinner/src/MoonLoader.vue */ "./node_modules/vue-spinner/src/MoonLoader.vue");
 //
 //
 //
@@ -2173,7 +2176,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2205,7 +2207,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    MoonLoader: vue_spinner_src_MoonLoader_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    MoonLoader: vue_spinner_src_MoonLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
     performLogin: function performLogin() {
@@ -2238,8 +2240,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_spinner_src_MoonLoader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-spinner/src/MoonLoader.vue */ "./node_modules/vue-spinner/src/MoonLoader.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2300,6 +2324,9 @@ __webpack_require__.r(__webpack_exports__);
       email: '',
       password: '',
       error: '',
+      isLoding: false,
+      size: '50px',
+      loadingColor: '#e2070e',
       show: false,
       rules: {
         required: function required(value) {
@@ -2319,21 +2346,25 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
+  components: {
+    MoonLoader: vue_spinner_src_MoonLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   methods: {
     performRegister: function performRegister() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/auth/register', {
+      this.isLoding = true, this.$store.dispatch('performRegisterAction', {
         name: this.name,
         email: this.email,
         password: this.password
       }).then(function (res) {
-        localStorage.setItem('token', res.data.access_token);
-        localStorage.setItem('user', res.data.user);
+        _this.isLoding = false;
 
         _this.$router.push('/profile');
       })["catch"](function (err) {
-        _this.error = err.message;
+        console.log(err.message);
+        _this.error = "There was error during Regestration process";
+        _this.isLoding = false;
       });
     }
   }
@@ -39461,102 +39492,168 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-container",
+    "v-row",
+    { attrs: { justify: "center", align: "center" } },
     [
-      _c("h1", [_vm._v("Register Form")]),
-      _vm._v(" "),
-      _vm.error
-        ? _c(
-            "v-alert",
-            {
-              attrs: {
-                border: "right",
-                "colored-border": "",
-                type: "error",
-                elevation: "2"
-              }
-            },
-            [_vm._v("\n      " + _vm._s(_vm.error) + "\n    ")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "v-form",
-        {
-          ref: "form",
-          attrs: { "lazy-validation": "" },
-          model: {
-            value: _vm.valid,
-            callback: function($$v) {
-              _vm.valid = $$v
-            },
-            expression: "valid"
-          }
-        },
-        [
-          _c("v-text-field", {
-            attrs: { label: "Name", required: "" },
-            model: {
-              value: _vm.name,
-              callback: function($$v) {
-                _vm.name = $$v
-              },
-              expression: "name"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-text-field", {
-            attrs: { rules: _vm.emailRules, label: "E-mail", required: "" },
-            model: {
-              value: _vm.email,
-              callback: function($$v) {
-                _vm.email = $$v
-              },
-              expression: "email"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-text-field", {
-            attrs: {
-              "append-icon": _vm.show ? "mdi-eye" : "mdi-eye-off",
-              rules: [_vm.rules.required, _vm.rules.min],
-              type: _vm.show ? "text" : "password",
-              name: "input-10-1",
-              label: "Password",
-              hint: "At least 8 characters",
-              counter: ""
-            },
-            on: {
-              "click:append": function($event) {
-                _vm.show = !_vm.show
-              }
-            },
-            model: {
-              value: _vm.password,
-              callback: function($$v) {
-                _vm.password = $$v
-              },
-              expression: "password"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              staticClass: "mr-4",
-              attrs: { disabled: !_vm.valid, color: "success" },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.performRegister($event)
-                }
-              }
-            },
-            [_vm._v("\n      Register\n    ")]
-          )
-        ],
-        1
-      )
+      _c("v-col", { attrs: { cols: "6" } }, [
+        _c(
+          "div",
+          { staticClass: "text-center" },
+          [
+            _c(
+              "v-container",
+              [
+                _c(
+                  "v-card",
+                  {
+                    staticClass: "overflow-hidden",
+                    attrs: { color: "black lighten-1", dark: "" }
+                  },
+                  [
+                    _c(
+                      "v-toolbar",
+                      { attrs: { flat: "", color: "black" } },
+                      [
+                        _c(
+                          "v-toolbar-title",
+                          { staticClass: "font-weight-light" },
+                          [_vm._v("\n        Register\n      ")]
+                        ),
+                        _vm._v(" "),
+                        _c("v-spacer"),
+                        _vm._v(" "),
+                        _c("moon-loader", {
+                          attrs: {
+                            loading: _vm.isLoding,
+                            color: _vm.loadingColor,
+                            size: _vm.size
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      [
+                        _vm.error
+                          ? _c(
+                              "v-alert",
+                              {
+                                attrs: {
+                                  border: "right",
+                                  "colored-border": "",
+                                  type: "error",
+                                  elevation: "2"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n      " + _vm._s(_vm.error) + "\n    "
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "v-form",
+                          {
+                            ref: "form",
+                            attrs: { "lazy-validation": "" },
+                            model: {
+                              value: _vm.valid,
+                              callback: function($$v) {
+                                _vm.valid = $$v
+                              },
+                              expression: "valid"
+                            }
+                          },
+                          [
+                            _c("v-text-field", {
+                              attrs: { label: "Name", required: "" },
+                              model: {
+                                value: _vm.name,
+                                callback: function($$v) {
+                                  _vm.name = $$v
+                                },
+                                expression: "name"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                rules: _vm.emailRules,
+                                label: "E-mail",
+                                required: ""
+                              },
+                              model: {
+                                value: _vm.email,
+                                callback: function($$v) {
+                                  _vm.email = $$v
+                                },
+                                expression: "email"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("v-text-field", {
+                              attrs: {
+                                "append-icon": _vm.show
+                                  ? "mdi-eye"
+                                  : "mdi-eye-off",
+                                rules: [_vm.rules.required, _vm.rules.min],
+                                type: _vm.show ? "text" : "password",
+                                name: "input-10-1",
+                                label: "Password",
+                                hint: "At least 8 characters",
+                                counter: ""
+                              },
+                              on: {
+                                "click:append": function($event) {
+                                  _vm.show = !_vm.show
+                                }
+                              },
+                              model: {
+                                value: _vm.password,
+                                callback: function($$v) {
+                                  _vm.password = $$v
+                                },
+                                expression: "password"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "mr-4",
+                                attrs: {
+                                  disabled: !_vm.valid,
+                                  color: "success"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.performRegister($event)
+                                  }
+                                }
+                              },
+                              [_vm._v("\n      Register\n    ")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
     ],
     1
   )
@@ -100628,7 +100725,7 @@ router.beforeEach(function (to, from, next) {
   })) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (!_store__WEBPACK_IMPORTED_MODULE_6__["default"].state.auth.loggedIn) {
+    if (_store__WEBPACK_IMPORTED_MODULE_6__["default"].state.auth.loggedIn == false) {
       next({
         path: '/login'
       });
@@ -100638,7 +100735,7 @@ router.beforeEach(function (to, from, next) {
   } else if (to.matched.some(function (record) {
     return record.meta.guest;
   })) {
-    if (!_store__WEBPACK_IMPORTED_MODULE_6__["default"].state.auth.loggedIn) {
+    if (_store__WEBPACK_IMPORTED_MODULE_6__["default"].state.auth.loggedIn == false) {
       next();
     } else {
       next({
@@ -100664,7 +100761,7 @@ router.beforeEach(function (to, from, next) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    loggedIn: '',
+    loggedIn: false,
     user: null,
     token: null
   },
@@ -100696,12 +100793,38 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    performLogoutAction: function performLogoutAction(_ref2) {
-      var state = _ref2.state,
-          commit = _ref2.commit;
-      commit('SET_token', '');
-      commit('SET_user', '');
-      commit('SET_loggedIn', false);
+    performRegisterAction: function performRegisterAction(_ref2, payload) {
+      var commit = _ref2.commit;
+      return new Promise(function (resolve, reject) {
+        axios.post('http://127.0.0.1:8000/api/auth/register', {
+          name: payload.name,
+          email: payload.email,
+          password: payload.password
+        }).then(function (res) {
+          commit('SET_token', res.data.access_token);
+          commit('SET_user', res.data.user);
+          commit('SET_loggedIn', true);
+          resolve(res);
+        })["catch"](function (err) {
+          reject(err);
+        });
+      });
+    },
+    performLogoutAction: function performLogoutAction(_ref3) {
+      var state = _ref3.state,
+          commit = _ref3.commit;
+      return new Promise(function (resolve, reject) {
+        axios.post('http://127.0.0.1:8000/api/auth/logout', {
+          token: state.token
+        }).then(function (res) {
+          commit('SET_token', null);
+          commit('SET_user', null);
+          commit('SET_loggedIn', false);
+          resolve(res);
+        })["catch"](function (err) {
+          reject(err);
+        });
+      });
     }
   },
   getters: {

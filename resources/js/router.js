@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.secure)) {
       // this route requires auth, check if logged in
       // if not, redirect to login page.
-      if (!store.state.auth.loggedIn) {
+      if (store.state.auth.loggedIn == false) {
         next({
           path: '/login'
         })
@@ -52,7 +52,7 @@ router.beforeEach((to, from, next) => {
       }
     } 
     else if(to.matched.some(record => record.meta.guest)) {
-        if (!store.state.auth.loggedIn) {
+        if (store.state.auth.loggedIn == false) {
             next()
           } else {
             next({

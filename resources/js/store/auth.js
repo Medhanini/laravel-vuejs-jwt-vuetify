@@ -1,6 +1,6 @@
 export default {
     state:{
-        loggedIn:'',
+        loggedIn:false,
         user: null,
         token: null
     },
@@ -32,10 +32,37 @@ export default {
                     })
             })
         },
+        performRegisterAction({commit}, payload){
+            return new Promise( (resolve, reject) => {
+                axios.post('http://127.0.0.1:8000/api/auth/register',{
+                    name:payload.name,
+                    email:payload.email,
+                    password:payload.password
+                    }).then(res =>{
+                        commit('SET_token', res.data.access_token)
+                        commit('SET_user', res.data.user)
+                        commit('SET_loggedIn', true)
+                        resolve(res)
+                    }
+                    ).catch( err => {
+                        reject(err)
+                    })
+            })
+        },
         performLogoutAction({state,commit}){
-            commit('SET_token', '')
-            commit('SET_user', '')
-            commit('SET_loggedIn', false)
+            return new Promise( (resolve, reject) => {
+                axios.post('http://127.0.0.1:8000/api/auth/logout',{
+                    token:state.token                    
+                    }).then(res =>{
+                        commit('SET_token', null)
+                        commit('SET_user', null)
+                        commit('SET_loggedIn', false)
+                        resolve(res)
+                    }
+                    ).catch( err => {
+                        reject(err)
+                    })
+            })
         }
     },
     getters:{

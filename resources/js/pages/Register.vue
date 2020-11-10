@@ -1,6 +1,24 @@
 <template>
+<v-row justify="center" align="center">
+    <v-col cols="6">
+      <div class="text-center">
 <v-container>
-    <h1>Register Form</h1>
+    <v-card
+    class="overflow-hidden"
+    color="black lighten-1"
+    dark
+  >
+  <v-toolbar
+      flat
+      color="black"
+    >
+      <v-toolbar-title class="font-weight-light">
+        Register
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+          <moon-loader :loading="isLoding" :color="loadingColor" :size="size"></moon-loader>
+    </v-toolbar>
+    <v-card-text>
     <v-alert
       v-if="error"
       border="right"
@@ -47,10 +65,15 @@
       Register
     </v-btn>
   </v-form>
+    </v-card-text>
+    </v-card>
 </v-container>
+      </div>
+    </v-col>
+</v-row>
 </template>
 <script>
-import axios from 'axios'
+import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   export default {
     data: () => ({
       valid: true,
@@ -58,6 +81,9 @@ import axios from 'axios'
       email: '',
       password: '',
       error:'',
+      isLoding:false,
+      size:'50px',
+      loadingColor:'#e2070e',
       show: false,
         rules: {
           required: value => !!value || 'Required.',
@@ -69,19 +95,23 @@ import axios from 'axios'
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ]
     }),
-
+    components:{
+      MoonLoader
+    },
     methods: {
       performRegister(){
-        axios.post('http://127.0.0.1:8000/api/auth/register',{
-          name : this.name,
-          email: this.email,
-          password: this.password
-        }).then(res=>{
-          localStorage.setItem('token', res.data.access_token);
-          localStorage.setItem('user', res.data.user);
+       this.isLoding = true,
+        this.$store.dispatch('performRegisterAction',{
+          name:this.name,
+          email:this.email,
+          password:this.password
+        }).then( res => {
+          this.isLoding = false
           this.$router.push('/profile')
-        }).catch(err=>{
-          this.error = err.message
+        }).catch( err => {
+            console.log(err.message)
+            this.error = "There was error during Regestration process"
+            this.isLoding = false
         })
       }
     },

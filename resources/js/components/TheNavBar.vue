@@ -140,7 +140,12 @@
     methods:{
       performLogout(){
         this.$store.dispatch('performLogoutAction')
+        .then(res=>{
         this.$router.push('/')
+        })
+        .catch(err=>{
+          console.log(err)
+        })
       }
     }
   }
