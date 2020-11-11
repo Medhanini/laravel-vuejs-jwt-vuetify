@@ -4,6 +4,7 @@
       v-model="drawer"
       :clipped="$vuetify.breakpoint.lgAndUp"
       app
+      v-if="loggedIn"
     >
       <v-list dense>
         <template v-for="item in items">
@@ -87,7 +88,8 @@
         class="ml-0 pl-4"
       >
         <span class="hidden-sm-and-down">
-    hello{{loggedIn}}</span>
+        App
+        </span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
             <div v-if="loggedIn" >

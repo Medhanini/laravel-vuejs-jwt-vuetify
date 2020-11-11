@@ -2061,6 +2061,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -39216,186 +39218,191 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "v-navigation-drawer",
-        {
-          attrs: { clipped: _vm.$vuetify.breakpoint.lgAndUp, app: "" },
-          model: {
-            value: _vm.drawer,
-            callback: function($$v) {
-              _vm.drawer = $$v
+      _vm.loggedIn
+        ? _c(
+            "v-navigation-drawer",
+            {
+              attrs: { clipped: _vm.$vuetify.breakpoint.lgAndUp, app: "" },
+              model: {
+                value: _vm.drawer,
+                callback: function($$v) {
+                  _vm.drawer = $$v
+                },
+                expression: "drawer"
+              }
             },
-            expression: "drawer"
-          }
-        },
-        [
-          _c(
-            "v-list",
-            { attrs: { dense: "" } },
             [
-              _vm._l(_vm.items, function(item) {
-                return [
-                  item.heading
-                    ? _c(
-                        "v-row",
-                        { key: item.heading, attrs: { align: "center" } },
-                        [
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "6" } },
-                            [
-                              item.heading
-                                ? _c("v-subheader", [
-                                    _vm._v(
-                                      "\n                " +
-                                        _vm._s(item.heading) +
-                                        "\n              "
-                                    )
-                                  ])
-                                : _vm._e()
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            {
-                              staticClass: "text-center",
-                              attrs: { cols: "6" }
-                            },
+              _c(
+                "v-list",
+                { attrs: { dense: "" } },
+                [
+                  _vm._l(_vm.items, function(item) {
+                    return [
+                      item.heading
+                        ? _c(
+                            "v-row",
+                            { key: item.heading, attrs: { align: "center" } },
                             [
                               _c(
-                                "a",
+                                "v-col",
+                                { attrs: { cols: "6" } },
+                                [
+                                  item.heading
+                                    ? _c("v-subheader", [
+                                        _vm._v(
+                                          "\n                " +
+                                            _vm._s(item.heading) +
+                                            "\n              "
+                                        )
+                                      ])
+                                    : _vm._e()
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
                                 {
-                                  staticClass: "body-2 black--text",
-                                  attrs: { href: "#!" }
+                                  staticClass: "text-center",
+                                  attrs: { cols: "6" }
                                 },
-                                [_vm._v("EDIT")]
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "body-2 black--text",
+                                      attrs: { href: "#!" }
+                                    },
+                                    [_vm._v("EDIT")]
+                                  )
+                                ]
                               )
-                            ]
+                            ],
+                            1
                           )
-                        ],
-                        1
-                      )
-                    : item.children
-                    ? _c(
-                        "v-list-group",
-                        {
-                          key: item.text,
-                          attrs: {
-                            "prepend-icon": item.model
-                              ? item.icon
-                              : item["icon-alt"],
-                            "append-icon": ""
-                          },
-                          scopedSlots: _vm._u(
+                        : item.children
+                        ? _c(
+                            "v-list-group",
+                            {
+                              key: item.text,
+                              attrs: {
+                                "prepend-icon": item.model
+                                  ? item.icon
+                                  : item["icon-alt"],
+                                "append-icon": ""
+                              },
+                              scopedSlots: _vm._u(
+                                [
+                                  {
+                                    key: "activator",
+                                    fn: function() {
+                                      return [
+                                        _c(
+                                          "v-list-item-content",
+                                          [
+                                            _c("v-list-item-title", [
+                                              _vm._v(
+                                                "\n                  " +
+                                                  _vm._s(item.text) +
+                                                  "\n                "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        )
+                                      ]
+                                    },
+                                    proxy: true
+                                  }
+                                ],
+                                null,
+                                true
+                              ),
+                              model: {
+                                value: item.model,
+                                callback: function($$v) {
+                                  _vm.$set(item, "model", $$v)
+                                },
+                                expression: "item.model"
+                              }
+                            },
                             [
-                              {
-                                key: "activator",
-                                fn: function() {
-                                  return [
+                              _vm._v(" "),
+                              _vm._l(item.children, function(child, i) {
+                                return _c(
+                                  "v-list-item",
+                                  { key: i, attrs: { link: "" } },
+                                  [
+                                    child.icon
+                                      ? _c(
+                                          "v-list-item-action",
+                                          [
+                                            _c("v-icon", [
+                                              _vm._v(_vm._s(child.icon))
+                                            ])
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
                                     _c(
                                       "v-list-item-content",
                                       [
                                         _c("v-list-item-title", [
                                           _vm._v(
                                             "\n                  " +
-                                              _vm._s(item.text) +
+                                              _vm._s(child.text) +
                                               "\n                "
                                           )
                                         ])
                                       ],
                                       1
                                     )
-                                  ]
-                                },
-                                proxy: true
-                              }
-                            ],
-                            null,
-                            true
-                          ),
-                          model: {
-                            value: item.model,
-                            callback: function($$v) {
-                              _vm.$set(item, "model", $$v)
-                            },
-                            expression: "item.model"
-                          }
-                        },
-                        [
-                          _vm._v(" "),
-                          _vm._l(item.children, function(child, i) {
-                            return _c(
-                              "v-list-item",
-                              { key: i, attrs: { link: "" } },
-                              [
-                                child.icon
-                                  ? _c(
-                                      "v-list-item-action",
-                                      [
-                                        _c("v-icon", [
-                                          _vm._v(_vm._s(child.icon))
-                                        ])
-                                      ],
-                                      1
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c(
-                                  "v-list-item-content",
-                                  [
-                                    _c("v-list-item-title", [
-                                      _vm._v(
-                                        "\n                  " +
-                                          _vm._s(child.text) +
-                                          "\n                "
-                                      )
-                                    ])
                                   ],
                                   1
                                 )
-                              ],
-                              1
-                            )
-                          })
-                        ],
-                        2
-                      )
-                    : _c(
-                        "v-list-item",
-                        { key: item.text, attrs: { link: "", to: item.to } },
-                        [
-                          _c(
-                            "v-list-item-action",
-                            [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-item-content",
+                              })
+                            ],
+                            2
+                          )
+                        : _c(
+                            "v-list-item",
+                            {
+                              key: item.text,
+                              attrs: { link: "", to: item.to }
+                            },
                             [
-                              _c("v-list-item-title", [
-                                _vm._v(
-                                  "\n                " +
-                                    _vm._s(item.text) +
-                                    "\n              "
-                                )
-                              ])
+                              _c(
+                                "v-list-item-action",
+                                [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-item-content",
+                                [
+                                  _c("v-list-item-title", [
+                                    _vm._v(
+                                      "\n                " +
+                                        _vm._s(item.text) +
+                                        "\n              "
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
                             ],
                             1
                           )
-                        ],
-                        1
-                      )
-                ]
-              })
+                    ]
+                  })
+                ],
+                2
+              )
             ],
-            2
+            1
           )
-        ],
-        1
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "v-app-bar",
@@ -39422,7 +39429,7 @@ var render = function() {
             { staticClass: "ml-0 pl-4", staticStyle: { width: "300px" } },
             [
               _c("span", { staticClass: "hidden-sm-and-down" }, [
-                _vm._v("\n    hello" + _vm._s(_vm.loggedIn))
+                _vm._v("\n        App\n        ")
               ])
             ]
           ),
