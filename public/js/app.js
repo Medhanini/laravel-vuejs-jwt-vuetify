@@ -2299,16 +2299,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      messages: [{
-        avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-        name: 'John Leider',
-        title: 'Welcome to Vuetify!',
-        excerpt: 'Thank you for joining our community...'
-      }],
-      lorem: 'Lorem ipsum dolor sit amet, at aliquam vivendum vel, everti delicatissimi cu eos. Dico iuvaret debitis mel an, et cum zril menandri. Eum in consul legimus accusam. Ea dico abhorreant duo, quo illum minimum incorrupte no, nostro voluptaria sea eu. Suas eligendi ius at, at nemore equidem est. Sed in error hendrerit, in consul constituam cum.'
+      dialog: false
     };
   },
   computed: {
@@ -39557,100 +39557,128 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-container",
-    { attrs: { fluid: "" } },
+    "v-card",
+    { staticClass: "mx-auto", attrs: { outlined: "" } },
     [
+      _c("v-breadcrumbs", { attrs: { customDivider: "", divider: "\\" } }),
+      _vm._v(" "),
       _c(
-        "v-row",
-        { attrs: { justify: "center" } },
+        "v-list-item",
+        { attrs: { "three-line": "" } },
         [
-          _c("v-col", [_c("v-header", [_vm._v("Personal info")])], 1),
-          _vm._v(" "),
           _c(
-            "v-col",
+            "v-list-item-content",
             [
-              _c("v-subheader", [
-                _vm._v("Basic info, such as your name and photo, that you use")
+              _c("div", { staticClass: "overline mb-4" }, [
+                _vm._v("\n          Personal info\n        ")
+              ]),
+              _vm._v(" "),
+              _c("v-list-item-title", { staticClass: "headline mb-1" }, [
+                _vm._v("\n         " + _vm._s(_vm.user.name) + "\n        ")
+              ]),
+              _vm._v(" "),
+              _c("v-list-item-subtitle", [
+                _vm._v(" " + _vm._s(_vm.user.email) + " ")
               ])
             ],
             1
           ),
           _vm._v(" "),
+          _c("v-list-item-avatar", {
+            attrs: { tile: "", size: "80", color: "grey" }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-card-actions",
+        [
           _c(
-            "v-expansion-panels",
-            { attrs: { popout: "" } },
+            "v-btn",
+            {
+              attrs: {
+                fab: "",
+                color: "cyan accent-2",
+                bottom: "",
+                right: "",
+                absolute: ""
+              },
+              on: {
+                click: function($event) {
+                  _vm.dialog = !_vm.dialog
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("mdi-pencil")])],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-dialog",
+            {
+              attrs: { "max-width": "500px" },
+              model: {
+                value: _vm.dialog,
+                callback: function($$v) {
+                  _vm.dialog = $$v
+                },
+                expression: "dialog"
+              }
+            },
             [
               _c(
-                "v-expansion-panel",
-                { attrs: { "hide-actions": "" } },
+                "v-card",
                 [
                   _c(
-                    "v-expansion-panel-header",
+                    "v-card-text",
                     [
-                      _c(
-                        "v-row",
-                        {
-                          staticClass: "spacer",
-                          attrs: { align: "center", "no-gutters": "" }
-                        },
-                        [
-                          _c(
-                            "v-col",
-                            { attrs: { cols: "4", sm: "2", md: "1" } },
-                            [
-                              _c("v-avatar", { attrs: { size: "36px" } }, [
-                                _c("img", {
-                                  attrs: {
-                                    alt: "Avatar",
-                                    src:
-                                      "https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
-                                  }
-                                })
-                              ])
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            {
-                              staticClass: "hidden-xs-only",
-                              attrs: { sm: "5", md: "3" }
-                            },
-                            [
-                              _c("strong", {
-                                domProps: { innerHTML: _vm._s(_vm.user.name) }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            {
-                              staticClass: "hidden-xs-only",
-                              attrs: { sm: "5", md: "3" }
-                            },
-                            [
-                              _c("strong", {
-                                domProps: { innerHTML: _vm._s(_vm.user.email) }
-                              })
-                            ]
-                          )
-                        ],
-                        1
-                      )
+                      _c("v-text-field", {
+                        attrs: { label: "Name" },
+                        model: {
+                          value: _vm.user.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.user, "name", $$v)
+                          },
+                          expression: "user.name"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: { label: "Email" },
+                        model: {
+                          value: _vm.user.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.user, "email", $$v)
+                          },
+                          expression: "user.email"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "grey--text" }, [
+                        _vm._v("* This updating you're Personal info.")
+                      ])
                     ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
-                    "v-expansion-panel-content",
+                    "v-card-actions",
                     [
-                      _c("v-divider"),
+                      _c("v-spacer"),
                       _vm._v(" "),
-                      _c("v-card-text", {
-                        domProps: { textContent: _vm._s(_vm.lorem) }
-                      })
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { text: "", color: "primary" },
+                          on: {
+                            click: function($event) {
+                              _vm.dialog = false
+                            }
+                          }
+                        },
+                        [_vm._v("\n                Submit\n              ")]
+                      )
                     ],
                     1
                   )
