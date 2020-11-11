@@ -141,7 +141,7 @@
       performLogout(){
         this.$store.dispatch('performLogoutAction')
         .then(res=>{
-        this.$router.push('/')
+        this.$router.push('/login')
         })
         .catch(err=>{
           console.log(err)
