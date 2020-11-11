@@ -51,11 +51,19 @@ class AuthController extends Controller
    {
        return response()->json(auth()->user());
    }
+   /**
+    * Get the authenticated User.
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
    public function update(Request $request)
    {
-        auth()->user->update($request->all);
+        auth()->user()->update($request->all());
         return response()->json(
-            ['status' => 'user profile was updated']
+            [
+                'status' => 'user profile was updated',
+                'user' => auth()->user()
+            ]
         ,200);
    }
 

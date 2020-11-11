@@ -2315,6 +2315,22 @@ __webpack_require__.r(__webpack_exports__);
     user: function user() {
       return this.$store.getters.get_user;
     }
+  },
+  methods: {
+    UpdateUserProfile: function UpdateUserProfile() {
+      var _this = this;
+
+      this.isLoding = true, this.$store.dispatch('UpdateUserProfile', {
+        name: this.user.name,
+        email: this.user.email
+      }).then(function (res) {
+        _this.isLoding = false;
+        console.log('the profile was updated');
+      })["catch"](function (err) {
+        console.log(err.message);
+        _this.isLoding = false;
+      });
+    }
   }
 });
 
@@ -39673,7 +39689,7 @@ var render = function() {
                           attrs: { text: "", color: "primary" },
                           on: {
                             click: function($event) {
-                              _vm.dialog = false
+                              _vm.UpdateUserProfile() & (_vm.dialog = false)
                             }
                           }
                         },
@@ -101062,6 +101078,22 @@ __webpack_require__.r(__webpack_exports__);
           commit('SET_token', null);
           commit('SET_user', null);
           commit('SET_loggedIn', false);
+          resolve(res);
+        })["catch"](function (err) {
+          reject(err);
+        });
+      });
+    },
+    UpdateUserProfile: function UpdateUserProfile(_ref4, payload) {
+      var commit = _ref4.commit,
+          state = _ref4.state;
+      return new Promise(function (resolve, reject) {
+        axios.patch('http://127.0.0.1:8000/api/auth/update', {
+          name: payload.name,
+          email: payload.email,
+          token: state.token
+        }).then(function (res) {
+          commit('SET_user', res.data.user);
           resolve(res);
         })["catch"](function (err) {
           reject(err);

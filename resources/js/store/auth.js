@@ -64,11 +64,13 @@ export default {
                     })
             })
         },
-        performLogoutUpdate({state,commit}){
+        UpdateUserProfile({commit,state}, payload){
             return new Promise( (resolve, reject) => {
-                axios.patch('http://127.0.0.1:8000/api/auth/update',{
+                axios
+                .patch('http://127.0.0.1:8000/api/auth/update',{
                     name:payload.name,
-                    email:payload.email
+                    email:payload.email,
+                    token:state.token
                     }).then(res =>{
                         commit('SET_user', res.data.user)
                         resolve(res)

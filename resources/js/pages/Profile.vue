@@ -53,7 +53,7 @@
               <v-btn
                 text
                 color="primary"
-                @click="(performUpdate()) & (dialog = false)"
+                @click="(UpdateUserProfile()) & (dialog = false)"
               >
                 Submit
               </v-btn>
@@ -76,14 +76,14 @@
         }
     },
     methods:{
-      performUpdate(){
+      UpdateUserProfile(){
         this.isLoding = true,
-        this.$store.dispatch('performLoginAction',{
-          email:this.email,
-          password:this.password
+        this.$store.dispatch('UpdateUserProfile',{
+          name:this.user.name,
+          email:this.user.email,
         }).then( res => {
           this.isLoding = false
-          console.log(res.data)
+          console.log('the profile was updated')
         }).catch( err => {
             console.log(err.message)
             this.isLoding = false
