@@ -53,7 +53,7 @@
               <v-btn
                 text
                 color="primary"
-                @click="dialog = false"
+                @click="(performUpdate()) & (dialog = false)"
               >
                 Submit
               </v-btn>
@@ -74,6 +74,21 @@
         user(){
             return this.$store.getters.get_user;
         }
+    },
+    methods:{
+      performUpdate(){
+        this.isLoding = true,
+        this.$store.dispatch('performLoginAction',{
+          email:this.email,
+          password:this.password
+        }).then( res => {
+          this.isLoding = false
+          console.log(res.data)
+        }).catch( err => {
+            console.log(err.message)
+            this.isLoding = false
+        })
+      }
     }
   }
 </script>
