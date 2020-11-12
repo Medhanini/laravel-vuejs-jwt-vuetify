@@ -28,7 +28,7 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
     Route::patch('update', 'AuthController@update');
-    Route::post('logout', 'AuthController@logout');
+    Route::post('logout', 'AuthController@logout')->name('api.jwt.logout');;
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 
