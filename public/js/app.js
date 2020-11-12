@@ -39429,7 +39429,7 @@ var render = function() {
             { staticClass: "ml-0 pl-4", staticStyle: { width: "300px" } },
             [
               _c("span", { staticClass: "hidden-sm-and-down" }, [
-                _vm._v("\n        App test 2\n        ")
+                _vm._v("\n        App test 3\n        ")
               ])
             ]
           ),
@@ -101618,7 +101618,7 @@ __webpack_require__.r(__webpack_exports__);
           commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
         axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/logout', {
-          Authorization: state.token
+          Authorization: 'Bearer ' + state.token
         }).then(function (res) {
           commit('SET_token', null);
           commit('SET_user', null);

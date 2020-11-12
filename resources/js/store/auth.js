@@ -52,7 +52,7 @@ export default {
         performLogoutAction({state,commit}){
             return new Promise( (resolve, reject) => {
                 axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/logout',{
-                    Authorization:(state.token)                    
+                    Authorization:('Bearer '+state.token)                    
                     }).then(res =>{
                         commit('SET_token', null)
                         commit('SET_user', null)
