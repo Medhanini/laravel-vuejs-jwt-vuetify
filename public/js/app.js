@@ -39511,7 +39511,7 @@ var render = function() {
     "v-row",
     { attrs: { justify: "center", align: "center" } },
     [
-      _c("v-col", { attrs: { cols: "6" } }, [
+      _c("v-col", { attrs: { md: "6", cols: "12" } }, [
         _c(
           "div",
           { staticClass: "text-center" },
@@ -39850,7 +39850,7 @@ var render = function() {
     "v-row",
     { attrs: { justify: "center", align: "center" } },
     [
-      _c("v-col", { attrs: { cols: "6" } }, [
+      _c("v-col", { attrs: { md: "6", cols: "12" } }, [
         _c(
           "div",
           { staticClass: "text-center" },
@@ -101583,7 +101583,7 @@ __webpack_require__.r(__webpack_exports__);
     performLoginAction: function performLoginAction(_ref, payload) {
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
-        axios.post('http://127.0.0.1:8000/api/auth/login', {
+        axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/login', {
           email: payload.email,
           password: payload.password
         }).then(function (res) {
@@ -101599,7 +101599,7 @@ __webpack_require__.r(__webpack_exports__);
     performRegisterAction: function performRegisterAction(_ref2, payload) {
       var commit = _ref2.commit;
       return new Promise(function (resolve, reject) {
-        axios.post('http://127.0.0.1:8000/api/auth/register', {
+        axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/register', {
           name: payload.name,
           email: payload.email,
           password: payload.password
@@ -101617,7 +101617,7 @@ __webpack_require__.r(__webpack_exports__);
       var state = _ref3.state,
           commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
-        axios.post('http://127.0.0.1:8000/api/auth/logout', {
+        axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/logout', {
           token: state.token
         }).then(function (res) {
           commit('SET_token', null);
@@ -101633,7 +101633,7 @@ __webpack_require__.r(__webpack_exports__);
       var commit = _ref4.commit,
           state = _ref4.state;
       return new Promise(function (resolve, reject) {
-        axios.patch('http://127.0.0.1:8000/api/auth/update', {
+        axios.patch('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/update', {
           name: payload.name,
           email: payload.email,
           token: state.token
