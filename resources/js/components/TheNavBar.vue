@@ -88,7 +88,7 @@
         class="ml-0 pl-4"
       >
         <span class="hidden-sm-and-down">
-        App test
+        App test 2
         </span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
