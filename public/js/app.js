@@ -39429,7 +39429,7 @@ var render = function() {
             { staticClass: "ml-0 pl-4", staticStyle: { width: "300px" } },
             [
               _c("span", { staticClass: "hidden-sm-and-down" }, [
-                _vm._v("\n        App\n        ")
+                _vm._v("\n        App test\n        ")
               ])
             ]
           ),
