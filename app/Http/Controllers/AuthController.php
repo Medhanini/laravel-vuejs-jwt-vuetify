@@ -1,17 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-
-
-use Auth;
-
-use Illuminate\Support\Facades\Validator;
-
 
 class AuthController extends Controller
 {
@@ -32,30 +26,13 @@ class AuthController extends Controller
     */
    public function login()
    {
-    //    $credentials = request(['email', 'password']);
+       $credentials = request(['email', 'password']);
 
-    //    if (! $token = auth()->attempt($credentials)) {
-    //        return response()->json(['error' => 'Unauthorized'], 401);
-    //    }
+       if (! $token = auth()->attempt($credentials)) {
+           return response()->json(['error' => 'Unauthorized'], 401);
+       }
 
-    //    return $this->respondWithToken($token);
-    $validator = Validator::make($request->all(), [
-        'email' => 'required|email|max:255',
-        'password' => 'required|string|min:8|max:255',
-    ]);
-
-    if($validator->fails()) {
-        return response()->json([
-            'status' => 'error',
-            'messages' => $validator->messages()
-        ], 200);
-    }
-
-    if (! $token = Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password])) {
-        return response()->json(['error' => 'Unauthorized'], 401);
-    }
-
-    return $this->respondWithToken($token);
+       return $this->respondWithToken($token);
    }
    public function register(){
        User::create([
@@ -88,7 +65,6 @@ class AuthController extends Controller
                 'user' => auth()->user()
             ]
         ,200);
-        
    }
 
    /**
@@ -98,16 +74,9 @@ class AuthController extends Controller
     */
    public function logout()
    {
-    //    auth()->logout();
+       auth()->logout();
 
-    //    return response()->json(['message' => 'Successfully logged out']);
-
-       Auth::guard('api')->logout();
-
-       return response()->json([
-           'status' => 'success',
-           'message' => 'logout'
-       ], 200);
+       return response()->json(['message' => 'Successfully logged out']);
    }
 
    /**
