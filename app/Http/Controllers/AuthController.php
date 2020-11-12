@@ -65,6 +65,7 @@ class AuthController extends Controller
                 'user' => auth()->user()
             ]
         ,200);
+        
    }
 
    /**
@@ -74,9 +75,16 @@ class AuthController extends Controller
     */
    public function logout()
    {
-       auth()->logout();
+    //    auth()->logout();
 
-       return response()->json(['message' => 'Successfully logged out']);
+    //    return response()->json(['message' => 'Successfully logged out']);
+
+       Auth::guard('api')->logout();
+
+       return response()->json([
+           'status' => 'success',
+           'message' => 'logout'
+       ], 200);
    }
 
    /**
