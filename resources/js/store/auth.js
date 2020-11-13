@@ -18,7 +18,7 @@ export default {
     actions:{
         performLoginAction({commit}, payload){
             return new Promise( (resolve, reject) => {
-                axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/login',{
+                axios.post('http://127.0.0.1:8000/api/auth/login',{
                     email:payload.email,
                     password:payload.password
                     }).then(res =>{
@@ -34,7 +34,7 @@ export default {
         },
         performRegisterAction({commit}, payload){
             return new Promise( (resolve, reject) => {
-                axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/register',{
+                axios.post('http://127.0.0.1:8000/api/auth/register',{
                     name:payload.name,
                     email:payload.email,
                     password:payload.password
@@ -51,8 +51,8 @@ export default {
         },
         performLogoutAction({state,commit}){
             return new Promise( (resolve, reject) => {
-                axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/logout',{
-                    Authorization:('Bearer '+state.token)                    
+                axios.post('http://127.0.0.1:8000/api/auth/logout',{
+                    token:state.token                    
                     }).then(res =>{
                         commit('SET_token', null)
                         commit('SET_user', null)
@@ -67,7 +67,7 @@ export default {
         UpdateUserProfile({commit,state}, payload){
             return new Promise( (resolve, reject) => {
                 axios
-                .patch('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/update',{
+                .patch('http://127.0.0.1:8000/api/auth/update',{
                     name:payload.name,
                     email:payload.email,
                     token:state.token

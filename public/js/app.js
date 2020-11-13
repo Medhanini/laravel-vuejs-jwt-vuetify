@@ -39429,7 +39429,7 @@ var render = function() {
             { staticClass: "ml-0 pl-4", staticStyle: { width: "300px" } },
             [
               _c("span", { staticClass: "hidden-sm-and-down" }, [
-                _vm._v("\n        App test 3\n        ")
+                _vm._v("\n        App test 4\n        ")
               ])
             ]
           ),
@@ -101583,7 +101583,7 @@ __webpack_require__.r(__webpack_exports__);
     performLoginAction: function performLoginAction(_ref, payload) {
       var commit = _ref.commit;
       return new Promise(function (resolve, reject) {
-        axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/login', {
+        axios.post('http://127.0.0.1:8000/api/auth/login', {
           email: payload.email,
           password: payload.password
         }).then(function (res) {
@@ -101599,7 +101599,7 @@ __webpack_require__.r(__webpack_exports__);
     performRegisterAction: function performRegisterAction(_ref2, payload) {
       var commit = _ref2.commit;
       return new Promise(function (resolve, reject) {
-        axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/register', {
+        axios.post('http://127.0.0.1:8000/api/auth/register', {
           name: payload.name,
           email: payload.email,
           password: payload.password
@@ -101617,8 +101617,8 @@ __webpack_require__.r(__webpack_exports__);
       var state = _ref3.state,
           commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
-        axios.post('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/logout', {
-          Authorization: 'Bearer ' + state.token
+        axios.post('http://127.0.0.1:8000/api/auth/logout', {
+          token: state.token
         }).then(function (res) {
           commit('SET_token', null);
           commit('SET_user', null);
@@ -101633,7 +101633,7 @@ __webpack_require__.r(__webpack_exports__);
       var commit = _ref4.commit,
           state = _ref4.state;
       return new Promise(function (resolve, reject) {
-        axios.patch('https://laravel-vuejs-jwt-vuetify.herokuapp.com/api/auth/update', {
+        axios.patch('http://127.0.0.1:8000/api/auth/update', {
           name: payload.name,
           email: payload.email,
           token: state.token
