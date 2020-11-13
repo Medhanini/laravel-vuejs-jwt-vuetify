@@ -2,6 +2,7 @@
   <v-card
     class="mx-auto"
     outlined
+    v-if="user"
   >
   <v-breadcrumbs
   customDivider

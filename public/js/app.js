@@ -2307,6 +2307,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -39429,7 +39430,7 @@ var render = function() {
             { staticClass: "ml-0 pl-4", staticStyle: { width: "300px" } },
             [
               _c("span", { staticClass: "hidden-sm-and-down" }, [
-                _vm._v("\n        App test 5\n        ")
+                _vm._v("\n        App\n        ")
               ])
             ]
           ),
@@ -39685,128 +39686,132 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-card",
-    { staticClass: "mx-auto", attrs: { outlined: "" } },
-    [
-      _c("v-breadcrumbs", { attrs: { customDivider: "", divider: "\\" } }),
-      _vm._v(" "),
-      _c(
-        "v-list-item",
-        { attrs: { "three-line": "" } },
+  return _vm.user
+    ? _c(
+        "v-card",
+        { staticClass: "mx-auto", attrs: { outlined: "" } },
         [
+          _c("v-breadcrumbs", { attrs: { customDivider: "", divider: "\\" } }),
+          _vm._v(" "),
           _c(
-            "v-list-item-content",
+            "v-list-item",
+            { attrs: { "three-line": "" } },
             [
-              _c("div", { staticClass: "overline mb-4" }, [
-                _vm._v("\n          Personal info\n        ")
-              ]),
+              _c(
+                "v-list-item-content",
+                [
+                  _c("div", { staticClass: "overline mb-4" }, [
+                    _vm._v("\n          Personal info\n        ")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-list-item-title", { staticClass: "headline mb-1" }, [
+                    _vm._v("\n         " + _vm._s(_vm.user.name) + "\n        ")
+                  ]),
+                  _vm._v(" "),
+                  _c("v-list-item-subtitle", [
+                    _vm._v(" " + _vm._s(_vm.user.email) + " ")
+                  ])
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("v-list-item-title", { staticClass: "headline mb-1" }, [
-                _vm._v("\n         " + _vm._s(_vm.user.name) + "\n        ")
-              ]),
-              _vm._v(" "),
-              _c("v-list-item-subtitle", [
-                _vm._v(" " + _vm._s(_vm.user.email) + " ")
-              ])
+              _c("v-list-item-avatar", {
+                attrs: { tile: "", size: "80", color: "grey" }
+              })
             ],
             1
           ),
           _vm._v(" "),
-          _c("v-list-item-avatar", {
-            attrs: { tile: "", size: "80", color: "grey" }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-card-actions",
-        [
           _c(
-            "v-btn",
-            {
-              attrs: {
-                fab: "",
-                color: "cyan accent-2",
-                bottom: "",
-                right: "",
-                absolute: ""
-              },
-              on: {
-                click: function($event) {
-                  _vm.dialog = !_vm.dialog
-                }
-              }
-            },
-            [_c("v-icon", [_vm._v("mdi-pencil")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-dialog",
-            {
-              attrs: { "max-width": "500px" },
-              model: {
-                value: _vm.dialog,
-                callback: function($$v) {
-                  _vm.dialog = $$v
-                },
-                expression: "dialog"
-              }
-            },
+            "v-card-actions",
             [
               _c(
-                "v-card",
+                "v-btn",
+                {
+                  attrs: {
+                    fab: "",
+                    color: "cyan accent-2",
+                    bottom: "",
+                    right: "",
+                    absolute: ""
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.dialog = !_vm.dialog
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("mdi-pencil")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-dialog",
+                {
+                  attrs: { "max-width": "500px" },
+                  model: {
+                    value: _vm.dialog,
+                    callback: function($$v) {
+                      _vm.dialog = $$v
+                    },
+                    expression: "dialog"
+                  }
+                },
                 [
                   _c(
-                    "v-card-text",
+                    "v-card",
                     [
-                      _c("v-text-field", {
-                        attrs: { label: "Name" },
-                        model: {
-                          value: _vm.user.name,
-                          callback: function($$v) {
-                            _vm.$set(_vm.user, "name", $$v)
-                          },
-                          expression: "user.name"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("v-text-field", {
-                        attrs: { label: "Email" },
-                        model: {
-                          value: _vm.user.email,
-                          callback: function($$v) {
-                            _vm.$set(_vm.user, "email", $$v)
-                          },
-                          expression: "user.email"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("small", { staticClass: "grey--text" }, [
-                        _vm._v("* This updating you're Personal info.")
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-actions",
-                    [
-                      _c("v-spacer"),
+                      _c(
+                        "v-card-text",
+                        [
+                          _c("v-text-field", {
+                            attrs: { label: "Name" },
+                            model: {
+                              value: _vm.user.name,
+                              callback: function($$v) {
+                                _vm.$set(_vm.user, "name", $$v)
+                              },
+                              expression: "user.name"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("v-text-field", {
+                            attrs: { label: "Email" },
+                            model: {
+                              value: _vm.user.email,
+                              callback: function($$v) {
+                                _vm.$set(_vm.user, "email", $$v)
+                              },
+                              expression: "user.email"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("small", { staticClass: "grey--text" }, [
+                            _vm._v("* This updating you're Personal info.")
+                          ])
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
-                        "v-btn",
-                        {
-                          attrs: { text: "", color: "primary" },
-                          on: {
-                            click: function($event) {
-                              _vm.UpdateUserProfile() & (_vm.dialog = false)
-                            }
-                          }
-                        },
-                        [_vm._v("\n                Submit\n              ")]
+                        "v-card-actions",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { text: "", color: "primary" },
+                              on: {
+                                click: function($event) {
+                                  _vm.UpdateUserProfile() & (_vm.dialog = false)
+                                }
+                              }
+                            },
+                            [_vm._v("\n                Submit\n              ")]
+                          )
+                        ],
+                        1
                       )
                     ],
                     1
@@ -39820,9 +39825,7 @@ var render = function() {
         ],
         1
       )
-    ],
-    1
-  )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
