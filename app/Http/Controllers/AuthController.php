@@ -35,11 +35,15 @@ class AuthController extends Controller
        return $this->respondWithToken($token);
    }
    public function register(){
-       User::create([
-           'name' => request('name'),
-           'email' => request('email'),
-           'password' => Hash::make(request('password'))
-       ]);
+        User::create([
+            'login' => request('login'),
+            'name' => request('name'),
+            'lastName' => request('lastName'),
+            'email' => request('email'),
+            'adress' => request('adress'),
+            'phoneNumber' => request('phoneNumber'),
+            'password' => Hash::make(request('password'))
+        ]);
        return $this->login(request());
    }
    /**
